@@ -68,7 +68,7 @@ NEXT_PUBLIC_PAYPAL_CLIENT_ID=...
 ## Project Structure
 
 ```
-DeepScent/
+Sensora/
 ├── frontend/                 # Next.js application
 │   ├── src/app/             # Pages: /, /calibration, /neuro-brief, /result
 │   ├── src/stores/          # Zustand state management
@@ -105,7 +105,7 @@ DeepScent/
 
 - **Frontend**: Vercel (Next.js auto-detection)
 - **Backend**: Vercel Serverless via `backend/api/index.py`
-- **Production**: deepscent.vercel.app
+- **Production**: sensora.vercel.app
 
 ## Competition Alignment
 
@@ -120,7 +120,7 @@ DeepScent/
 
 ## Team
 
-DeepScent Team — L'Oréal Brandstorm 2026
+Sensora Team — L'Oréal Brandstorm 2026
 
 ## License
 

@@ -219,8 +219,13 @@ export default function LandingPage() {
             <a href="#science" className="text-sensora-text-soft hover:text-sensora-teal-600 transition-colors">
               Science
             </a>
-            <a href="#about" className="text-sensora-text-soft hover:text-sensora-teal-600 transition-colors">
-              About
+            <a
+              href="https://github.com/calderbuild/Sensora"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sensora-text-soft hover:text-sensora-teal-600 transition-colors"
+            >
+              GitHub
             </a>
           </div>
         </div>
@@ -474,12 +479,14 @@ export default function LandingPage() {
             L'Oreal Brandstorm 2026 Innovation Challenge
           </p>
           <div className="flex gap-6">
-            <span className="text-sensora-text-muted text-sm hover:text-sensora-teal-600 transition-colors cursor-pointer">
-              Privacy
-            </span>
-            <span className="text-sensora-text-muted text-sm hover:text-sensora-teal-600 transition-colors cursor-pointer">
-              Terms
-            </span>
+            <a
+              href="https://github.com/calderbuild/Sensora"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sensora-text-muted text-sm hover:text-sensora-teal-600 transition-colors"
+            >
+              GitHub
+            </a>
           </div>
         </div>
       </footer>
