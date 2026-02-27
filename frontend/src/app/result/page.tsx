@@ -610,10 +610,14 @@ export default function ResultPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
-          <h3 className="font-display text-2xl text-sensora-text mb-2">Interested in Your Custom Fragrance?</h3>
+          <h3 className="font-display text-2xl text-sensora-text mb-2">Order Your Custom Fragrance</h3>
           <p className="text-sensora-text-soft mb-6">
-            This platform is currently in beta. To order your personalized 30ml Eau de Parfum, please reach out to us via email.
+            30ml Eau de Parfum, hand-crafted with your personalized formula
           </p>
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <span className="text-sensora-teal-600 font-display text-4xl">$149</span>
+            <span className="text-sensora-text-muted text-sm">USD</span>
+          </div>
 
           {showContact ? (
             <motion.div
@@ -626,23 +630,29 @@ export default function ResultPage() {
                   <svg className="w-6 h-6 text-sensora-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="font-display text-lg text-sensora-text">Contact Us</span>
+                  <span className="font-display text-lg text-sensora-text">Complete Your Order</span>
                 </div>
+                <p className="text-sensora-text-soft text-sm mb-3">
+                  Email us with your formula name to place your order:
+                </p>
                 <a
-                  href="mailto:johnrobertdestiny@gmail.com?subject=Sensora Custom Fragrance Inquiry"
-                  className="text-sensora-teal-600 font-medium hover:text-sensora-teal-700 transition-colors underline underline-offset-2"
+                  href="mailto:johnrobertdestiny@gmail.com?subject=Sensora Order - Custom Fragrance&body=Hi, I would like to order my custom fragrance formula. My formula details are attached in this email."
+                  className="inline-flex items-center gap-2 bg-sensora-teal-600 text-white px-5 py-2.5 rounded-xl font-medium hover:bg-sensora-teal-700 transition-colors"
                 >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                   johnrobertdestiny@gmail.com
                 </a>
                 <p className="text-sensora-text-muted text-xs mt-3">
-                  Include your formula name and we will get back to you within 48 hours.
+                  We will confirm your order and arrange payment within 24 hours.
                 </p>
               </div>
               <button
                 className="text-sensora-teal-600 text-sm underline underline-offset-2 hover:text-sensora-teal-700 transition-colors"
                 onClick={() => setShowContact(false)}
               >
-                Hide Contact
+                Back
               </button>
             </motion.div>
           ) : (
@@ -654,15 +664,15 @@ export default function ResultPage() {
             >
               <span className="flex items-center gap-2">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
                 </svg>
-                Get in Touch
+                Purchase Now
               </span>
             </motion.button>
           )}
 
           <p className="text-sensora-text-muted text-xs mt-4">
-            Currently in beta. Reach out for pricing and availability.
+            Secure checkout. Ships worldwide in 5-7 business days.
           </p>
         </motion.div>
 
