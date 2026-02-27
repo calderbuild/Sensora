@@ -105,7 +105,7 @@ Sensora/
 
 - **Frontend**: Vercel (Next.js auto-detection)
 - **Backend**: Vercel Serverless via `backend/api/index.py`
-- **Production**: sensora.vercel.app
+- **Production**: sensora-delta.vercel.app
 
 ## Competition Alignment
 

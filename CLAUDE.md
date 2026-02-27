@@ -112,8 +112,8 @@ NEXT_PUBLIC_PAYPAL_CLIENT_ID=...
 - Frontend: Vercel (Next.js), config at `frontend/vercel.json`
 - Backend: Vercel serverless (Python), entry point at `backend/api/index.py`, config at `backend/vercel.json`
 - Alternative: Railway via `backend/Dockerfile` + `railway.toml`
-- Production: sensora.vercel.app
-- CORS allows `localhost:3000`, `sensora.vercel.app`, and `*.vercel.app`
+- Production: sensora-delta.vercel.app
+- CORS allows `localhost:3000`, `sensora-delta.vercel.app`, and `*.vercel.app`
 
 ## Gotchas
 
