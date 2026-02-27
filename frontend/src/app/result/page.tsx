@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
 import {
   ResponsiveContainer,
   RadarChart,
@@ -372,7 +371,7 @@ function LoadingAnimation() {
 export default function ResultPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [formula, setFormula] = useState<Formula>(sampleFormula)
-  const [showQR, setShowQR] = useState(false)
+  const [showContact, setShowContact] = useState(false)
 
   // Fetch formula from API
   const fetchFormula = useCallback(async () => {
@@ -611,57 +610,59 @@ export default function ResultPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
-          <h3 className="font-display text-2xl text-sensora-text mb-2">Order Your Custom Fragrance</h3>
+          <h3 className="font-display text-2xl text-sensora-text mb-2">Interested in Your Custom Fragrance?</h3>
           <p className="text-sensora-text-soft mb-6">
-            30ml Eau de Parfum, hand-crafted with your personalized formula
+            This platform is currently in beta. To order your personalized 30ml Eau de Parfum, please reach out to us via email.
           </p>
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="text-sensora-teal-600 font-display text-4xl">$149</span>
-            <span className="text-sensora-text-muted text-sm">USD</span>
-          </div>
 
-          {showQR ? (
+          {showContact ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="flex flex-col items-center"
             >
-              <div className="bg-white rounded-2xl p-4 shadow-sm border border-sensora-teal-100 inline-block mb-4">
-                <Image
-                  src="/paypal-qr.jpg"
-                  alt="PayPal QR Code"
-                  width={240}
-                  height={240}
-                  className="rounded-lg"
-                />
+              <div className="bg-sensora-teal-50 rounded-2xl p-6 border border-sensora-teal-100 inline-block mb-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <svg className="w-6 h-6 text-sensora-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span className="font-display text-lg text-sensora-text">Contact Us</span>
+                </div>
+                <a
+                  href="mailto:johnrobertdestiny@gmail.com?subject=Sensora Custom Fragrance Inquiry"
+                  className="text-sensora-teal-600 font-medium hover:text-sensora-teal-700 transition-colors underline underline-offset-2"
+                >
+                  johnrobertdestiny@gmail.com
+                </a>
+                <p className="text-sensora-text-muted text-xs mt-3">
+                  Include your formula name and we will get back to you within 48 hours.
+                </p>
               </div>
-              <p className="text-sensora-text text-sm mb-1">Scan with PayPal app to pay <strong>$149.00 USD</strong></p>
-              <p className="text-sensora-text-muted text-xs mb-4">After payment, email your order ID to confirm shipment</p>
               <button
                 className="text-sensora-teal-600 text-sm underline underline-offset-2 hover:text-sensora-teal-700 transition-colors"
-                onClick={() => setShowQR(false)}
+                onClick={() => setShowContact(false)}
               >
-                Hide QR Code
+                Hide Contact
               </button>
             </motion.div>
           ) : (
             <motion.button
               className="btn-primary text-lg px-8 py-4"
-              onClick={() => setShowQR(true)}
+              onClick={() => setShowContact(true)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <span className="flex items-center gap-2">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.11l-1.272 7.24a.64.64 0 0 1-.633.544H7.076z"/>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                Pay with PayPal
+                Get in Touch
               </span>
             </motion.button>
           )}
 
           <p className="text-sensora-text-muted text-xs mt-4">
-            Secure payment via PayPal. Ships worldwide in 5-7 business days.
+            Currently in beta. Reach out for pricing and availability.
           </p>
         </motion.div>
 
