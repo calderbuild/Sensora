@@ -373,20 +373,26 @@ export default function ResultPage() {
   const [formula, setFormula] = useState<Formula>(sampleFormula)
   const [showContact, setShowContact] = useState(false)
 
-  // Fetch formula from API
+  // Fetch formula from API using Zustand persisted state
   const fetchFormula = useCallback(async () => {
     try {
-      const calibration = localStorage.getItem('sensora_calibration')
-      const neuroBrief = localStorage.getItem('sensora_neuro_brief')
-
-      if (!calibration || !neuroBrief) {
+      // Read from Zustand persisted localStorage
+      const stored = localStorage.getItem('sensora-user-profile')
+      if (!stored) {
         setFormula(sampleFormula)
         setIsLoading(false)
         return
       }
 
-      const calData = JSON.parse(calibration)
-      const neuroData = JSON.parse(neuroBrief)
+      const parsed = JSON.parse(stored)
+      const calData = parsed?.state?.calibration
+      const neuroData = parsed?.state?.neuroBrief
+
+      if (!calData?.skinType || !neuroData?.timestamp) {
+        setFormula(sampleFormula)
+        setIsLoading(false)
+        return
+      }
 
       const response = await fetch(`${API_BASE}/api/formulation/generate`, {
         method: 'POST',
@@ -426,13 +432,13 @@ export default function ResultPage() {
   }, [fetchFormula])
 
   const handleExport = () => {
-    const calibration = localStorage.getItem('aether_calibration')
-    const neuroBrief = localStorage.getItem('aether_neuro_brief')
+    const stored = localStorage.getItem('sensora-user-profile')
+    const parsed = stored ? JSON.parse(stored) : null
 
     const exportData = {
       formula,
-      calibration: calibration ? JSON.parse(calibration) : null,
-      neuroBrief: neuroBrief ? JSON.parse(neuroBrief) : null,
+      calibration: parsed?.state?.calibration || null,
+      neuroBrief: parsed?.state?.neuroBrief || null,
       exportedAt: new Date().toISOString(),
     }
 
