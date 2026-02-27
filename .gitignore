@@ -43,3 +43,12 @@ htmlcov/
 *.bak
 *.tmp
 docs/*.md
+
+# Playwright MCP
+.playwright-mcp/
+
+# Loose images/PDFs in project root
+/*.jpg
+/*.jpeg
+/*.png
+/*.pdf

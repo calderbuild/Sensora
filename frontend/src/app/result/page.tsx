@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   ResponsiveContainer,
   RadarChart,
@@ -371,9 +372,7 @@ function LoadingAnimation() {
 export default function ResultPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [formula, setFormula] = useState<Formula>(sampleFormula)
-  const [error, setError] = useState<string | null>(null)
-  const [isPurchasing, setIsPurchasing] = useState(false)
-  const [purchaseComplete, setPurchaseComplete] = useState(false)
+  const [showQR, setShowQR] = useState(false)
 
   // Fetch formula from API
   const fetchFormula = useCallback(async () => {
@@ -449,41 +448,6 @@ export default function ResultPage() {
     URL.revokeObjectURL(url)
   }
 
-  const handlePurchase = async () => {
-    setIsPurchasing(true)
-    setError(null)
-
-    try {
-      // Create PayPal order
-      const response = await fetch(`${API_BASE}/api/payment/create-order`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          formula_id: formula.formula_id,
-          formula_name: formula.name,
-          amount: 149.00,
-          currency: 'USD',
-        }),
-      })
-
-      if (!response.ok) {
-        const errData = await response.json()
-        throw new Error(errData.detail || 'Payment service unavailable')
-      }
-
-      const data = await response.json()
-
-      if (data.approval_url) {
-        // Redirect to PayPal
-        window.location.href = data.approval_url
-      } else {
-        throw new Error('No payment URL received')
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Payment failed')
-      setIsPurchasing(false)
-    }
-  }
 
   // Helper to get ingredients by note type
   const getIngredientsByType = (type: string) => {
@@ -656,41 +620,43 @@ export default function ResultPage() {
             <span className="text-sensora-text-muted text-sm">USD</span>
           </div>
 
-          {error && (
-            <p className="text-sensora-rose-500 text-sm mb-4">{error}</p>
-          )}
-
-          {purchaseComplete ? (
-            <div className="text-sensora-teal-600">
-              <svg className="w-12 h-12 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              <p>Purchase complete! Check your email for order details.</p>
-            </div>
+          {showQR ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center"
+            >
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-sensora-teal-100 inline-block mb-4">
+                <Image
+                  src="/paypal-qr.jpg"
+                  alt="PayPal QR Code"
+                  width={240}
+                  height={240}
+                  className="rounded-lg"
+                />
+              </div>
+              <p className="text-sensora-text text-sm mb-1">Scan with PayPal app to pay <strong>$149.00 USD</strong></p>
+              <p className="text-sensora-text-muted text-xs mb-4">After payment, email your order ID to confirm shipment</p>
+              <button
+                className="text-sensora-teal-600 text-sm underline underline-offset-2 hover:text-sensora-teal-700 transition-colors"
+                onClick={() => setShowQR(false)}
+              >
+                Hide QR Code
+              </button>
+            </motion.div>
           ) : (
             <motion.button
               className="btn-primary text-lg px-8 py-4"
-              onClick={handlePurchase}
-              disabled={isPurchasing}
+              onClick={() => setShowQR(true)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {isPurchasing ? (
-                <span className="flex items-center gap-2">
-                  <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  Processing...
-                </span>
-              ) : (
-                <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.11l-1.272 7.24a.64.64 0 0 1-.633.544H7.076z"/>
-                  </svg>
-                  Pay with PayPal
-                </span>
-              )}
+              <span className="flex items-center gap-2">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.11l-1.272 7.24a.64.64 0 0 1-.633.544H7.076z"/>
+                </svg>
+                Pay with PayPal
+              </span>
             </motion.button>
           )}
 
